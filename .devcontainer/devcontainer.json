@@ -1,0 +1,36 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "postCreateCommand": ".devcontainer/postCreate.sh",
+  "postStartCommand": "",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // "hverlin.mise-vscode"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/tailscale/codespace/tailscale": {
+      "runArgs": [
+        "--device=/dev/net/tun"
+      ]
+    }
+  }
+}
+// BILLED
+// Moundville (no ps)
+// Donaldson
+// Fosters
+// Jersey Park
+//? TO BILL?
+//? Mallard Fox
+//? Doss Ferry
+//! TO BILL - DONE
+// I59
+// Epes
+// 4H
+// Riverside
+// Oneonta + PS
+// Autauga
+// Moundville PS only
+// W Blocton PS only
