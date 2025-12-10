@@ -1,40 +1,9 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": ".devcontainer/postCreate.sh",
-  // "postStartCommand": "",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "redhat.vscode-yaml",
-        "irongeek.vscode-env",
-        "blueglassblock.better-json5",
-        "signageos.signageos-vscode-sops"
-        // "hverlin.mise-vscode"
-      ]
-    }
-  },
+  "name": "dev-container",
+  "image": "ghcr.io/jdx/mise:latest",
   "features": {
-    "ghcr.io/tailscale/codespace/tailscale": {
-      "runArgs": [
-        "--device=/dev/net/tun"
-      ]
-    }
-  }
+    // "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {}
+  },
+  "postCreateCommand": ".devcontainer/post-create.sh"
 }
-// BILLED
-// Moundville (no ps)
-// Donaldson
-// Fosters
-// Jersey Park
-//? TO BILL?
-//? Mallard Fox
-//? Doss Ferry
-//! TO BILL - DONE
-// I59
-// Epes
-// 4H
-// Riverside
-// Oneonta + PS
-// Autauga
-// Moundville PS only
-// W Blocton PS only
