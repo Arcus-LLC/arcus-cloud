@@ -4,5 +4,5 @@
   "runArgs": [
     "--network=host"
   ],
-  "postCreateCommand": ".devcontainer/post-create.sh"
+  "postCreateCommand": "mise trust && pip install pipx && mise install"
 }
