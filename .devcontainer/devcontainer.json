@@ -1,8 +1,15 @@
 {
-  "name": "dev-container",
-  "image": "ghcr.io/jdx/mise:latest",
-  "runArgs": [
-    "--network=host"
+  "name": "mise",
+  "image": "ghcr.io/jdx/mise:2025.12.5",
+  "mounts": [
+    //* Data volume for installed tools.
+    //* This avoids Github public api rate limits if rebuilding the container too frequently.
+    "source=mise-data-volume,target=/mise,type=volume"
   ],
-  "postCreateCommand": "mise trust && pip install pipx && mise install"
+  "runArgs": [
+    "--network=host", //* Allow host networking
+    "--pull=always", //* Always pull the latest version
+    "--security-opt=no-new-privileges:true" //* Prohibits privilege escalation
+  ],
+  "postCreateCommand": "pip install pipx && mise install"
 }
