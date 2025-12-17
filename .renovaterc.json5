@@ -28,6 +28,9 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
+  docker: {
+    managerFilePatterns: ["/(^|/)\\.devcontainer/devcontainer\\.json$/"],
+  },
   packageRules: [
     {
       description: "Override Helmfile Dependency Name",
@@ -60,6 +63,15 @@
       automerge: true,
       automergeType: "branch",
       matchUpdateTypes: ["minor", "patch"],
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge mise devcontainer image",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/jdx/mise"],
+      automerge: true,
+      automergeType: "branch",
+      matchUpdateTypes: ["minor", "patch", "digest"],
       ignoreTests: true,
     },
     {

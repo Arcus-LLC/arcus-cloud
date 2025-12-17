@@ -1,36 +1,15 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": ".devcontainer/postCreate.sh",
-  "postStartCommand": "",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        // "hverlin.mise-vscode"
-      ]
-    }
-  },
-  "features": {
-    "ghcr.io/tailscale/codespace/tailscale": {
-      "runArgs": [
-        "--device=/dev/net/tun"
-      ]
-    }
-  }
+  "name": "mise",
+  "image": "ghcr.io/jdx/mise:2025.12.5",
+  "mounts": [
+    //* Data volume for installed tools.
+    //* This avoids Github public api rate limits if rebuilding the container too frequently.
+    "source=mise-data-volume,target=/mise,type=volume"
+  ],
+  "runArgs": [
+    "--network=host", //* Allow host networking
+    "--pull=always", //* Always pull the latest version
+    "--security-opt=no-new-privileges:true" //* Prohibits privilege escalation
+  ],
+  "postCreateCommand": "pip install pipx && mise install"
 }
-// BILLED
-// Moundville (no ps)
-// Donaldson
-// Fosters
-// Jersey Park
-//? TO BILL?
-//? Mallard Fox
-//? Doss Ferry
-//! TO BILL - DONE
-// I59
-// Epes
-// 4H
-// Riverside
-// Oneonta + PS
-// Autauga
-// Moundville PS only
-// W Blocton PS only
