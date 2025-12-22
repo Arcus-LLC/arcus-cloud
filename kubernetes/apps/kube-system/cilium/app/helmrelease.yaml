@@ -38,7 +38,13 @@ spec:
       ui:
         enabled: true
       metrics:
-        enabled: true
+        enabled:
+          - drop
+          - tcp
+          - flow
+          - icmp
+          - httpV2  # L7 HTTP metrics (add exemplars/labels if needed)
+          - dns
         enableOpenMetrics: true
       tls:
         auto:
