@@ -5,11 +5,10 @@ metadata:
   name: allow-flux-reconcile
   namespace: flux-system
 spec:
-  terms:
-    - endpointSelector:
-        matchLabels:
-          app.kubernetes.io/name: flux-operator
-      ingress:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: flux-operator
+  ingress:
     - fromEndpoints:
         - {}
   egress:
