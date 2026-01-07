@@ -1,6 +1,6 @@
 {
   "name": "mise",
-  "image": "ghcr.io/jdx/mise:2025.12.5",
+  "image": "ghcr.io/jdx/mise:2025.12.13",
   "mounts": [
     //* Data volume for installed tools.
     //* This avoids Github public api rate limits if rebuilding the container too frequently.
