@@ -11,10 +11,16 @@
   ],
   dependencyDashboard: true,
   dependencyDashboardTitle: "Renovate Dashboard :robot:",
-  schedule: ["every weekend"],
-  ignorePaths: ["**/*.sops.*"],
+  schedule: [
+    "* 0-3 * * *"
+  ],
+  ignorePaths: [
+    "**/*.sops.*"
+  ],
   flux: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"
+    ],
   },
   helmfile: {
     managerFilePatterns: [
@@ -23,26 +29,42 @@
     ],
   },
   kubernetes: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      "/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"
+    ],
   },
   kustomize: {
-    managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
+    managerFilePatterns: [
+      "/^kustomization\\.ya?ml(?:\\.j2)?$/"
+    ],
   },
   docker: {
-    managerFilePatterns: ["/(^|/)\\.devcontainer/devcontainer\\.json$/"],
+    managerFilePatterns: [
+      "/(^|/)\\.devcontainer/devcontainer\\.json$/"
+    ],
   },
   packageRules: [
     {
       description: "Override Helmfile Dependency Name",
-      matchDatasources: ["docker"],
-      matchManagers: ["helmfile"],
+      matchDatasources: [
+        "docker"
+      ],
+      matchManagers: [
+        "helmfile"
+      ],
       overrideDepName: "{{packageName}}",
     },
     {
       description: "Flux Operator Group",
       groupName: "flux-operator",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["/flux-operator/", "/flux-instance/", "/flux-operator-manifests/"],
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "/flux-operator/",
+        "/flux-instance/",
+        "/flux-operator-manifests/"
+      ],
       group: {
         commitMessageTopic: "{{{groupName}}} group",
       },
@@ -50,108 +72,177 @@
     },
     {
       description: "Auto-merge GitHub Actions",
-      matchManagers: ["github-actions"],
+      matchManagers: [
+        "github-actions"
+      ],
       automerge: true,
       automergeType: "branch",
-      matchUpdateTypes: ["minor", "patch", "digest"],
+      matchUpdateTypes: [
+        "minor",
+        "patch",
+        "digest"
+      ],
       minimumReleaseAge: "3 days",
       ignoreTests: true,
     },
     {
       description: "Auto-merge Mise Tools",
-      matchManagers: ["mise"],
+      matchManagers: [
+        "mise"
+      ],
       automerge: true,
       automergeType: "branch",
-      matchUpdateTypes: ["minor", "patch"],
+      matchUpdateTypes: [
+        "minor",
+        "patch"
+      ],
       ignoreTests: true,
     },
     {
       description: "Auto-merge mise devcontainer image",
-      matchDatasources: ["docker"],
-      matchPackageNames: ["ghcr.io/jdx/mise"],
+      matchDatasources: [
+        "docker"
+      ],
+      matchPackageNames: [
+        "ghcr.io/jdx/mise"
+      ],
       automerge: true,
       automergeType: "branch",
-      matchUpdateTypes: ["minor", "patch", "digest"],
+      matchUpdateTypes: [
+        "minor",
+        "patch",
+        "digest"
+      ],
       ignoreTests: true,
     },
     {
-      matchUpdateTypes: ["major"],
+      matchUpdateTypes: [
+        "major"
+      ],
       semanticCommitType: "feat",
       commitMessagePrefix: "{{semanticCommitType}}({{semanticCommitScope}})!:",
       commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
     },
     {
-      matchUpdateTypes: ["minor"],
+      matchUpdateTypes: [
+        "minor"
+      ],
       semanticCommitType: "feat",
       commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
     },
     {
-      matchUpdateTypes: ["patch"],
+      matchUpdateTypes: [
+        "patch"
+      ],
       semanticCommitType: "fix",
       commitMessageExtra: "( {{currentVersion}} ➔ {{newVersion}} )",
     },
     {
-      matchUpdateTypes: ["digest"],
+      matchUpdateTypes: [
+        "digest"
+      ],
       semanticCommitType: "chore",
       commitMessageExtra: "( {{currentDigestShort}} ➔ {{newDigestShort}} )",
     },
     {
-      matchDatasources: ["docker"],
+      matchDatasources: [
+        "docker"
+      ],
       semanticCommitScope: "container",
       commitMessageTopic: "image {{depName}}",
     },
     {
-      matchDatasources: ["helm"],
+      matchDatasources: [
+        "helm"
+      ],
       semanticCommitScope: "helm",
       commitMessageTopic: "chart {{depName}}",
     },
     {
-      matchManagers: ["github-actions"],
+      matchManagers: [
+        "github-actions"
+      ],
       semanticCommitType: "ci",
       semanticCommitScope: "github-action",
       commitMessageTopic: "action {{depName}}",
     },
     {
-      matchDatasources: ["github-releases"],
+      matchDatasources: [
+        "github-releases"
+      ],
       semanticCommitScope: "github-release",
       commitMessageTopic: "release {{depName}}",
     },
     {
-      matchManagers: ["mise"],
+      matchManagers: [
+        "mise"
+      ],
       semanticCommitScope: "mise",
       commitMessageTopic: "tool {{depName}}",
     },
     {
-      matchUpdateTypes: ["major"],
-      labels: ["type/major"],
+      matchUpdateTypes: [
+        "major"
+      ],
+      labels: [
+        "type/major"
+      ],
     },
     {
-      matchUpdateTypes: ["minor"],
-      labels: ["type/minor"],
+      matchUpdateTypes: [
+        "minor"
+      ],
+      labels: [
+        "type/minor"
+      ],
     },
     {
-      matchUpdateTypes: ["patch"],
-      labels: ["type/patch"],
+      matchUpdateTypes: [
+        "patch"
+      ],
+      labels: [
+        "type/patch"
+      ],
     },
     {
-      matchUpdateTypes: ["digest"],
-      labels: ["type/digest"],
+      matchUpdateTypes: [
+        "digest"
+      ],
+      labels: [
+        "type/digest"
+      ],
     },
     {
-      matchDatasources: ["docker"],
-      addLabels: ["renovate/container"],
+      matchDatasources: [
+        "docker"
+      ],
+      addLabels: [
+        "renovate/container"
+      ],
     },
     {
-      matchDatasources: ["helm"],
-      addLabels: ["renovate/helm"],
+      matchDatasources: [
+        "helm"
+      ],
+      addLabels: [
+        "renovate/helm"
+      ],
     },
     {
-      matchManagers: ["github-actions"],
-      addLabels: ["renovate/github-action"],
+      matchManagers: [
+        "github-actions"
+      ],
+      addLabels: [
+        "renovate/github-action"
+      ],
     },
     {
-      matchDatasources: ["github-releases"],
-      addLabels: ["renovate/github-release"],
+      matchDatasources: [
+        "github-releases"
+      ],
+      addLabels: [
+        "renovate/github-release"
+      ],
     },
   ],
   customManagers: [
