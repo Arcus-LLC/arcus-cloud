@@ -66,7 +66,6 @@ cloudflare_token: ""
 # -- The Load balancer IP for the external gateway
 #    (REQUIRED) / (NOTE: Choose an unused IP in node_cidr)
 cloudflare_gateway_addr: ""
-
 # -- The load balancer mode for cilium.
 #    (OPTIONAL) / (DEFAULT: "dsr") / (NOTE: accepted values are 'dsr' or 'snat') / (REF: https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/)
 # cilium_loadbalancer_mode: ""
@@ -82,3 +81,16 @@ cloudflare_gateway_addr: ""
 # -- The BGP node ASN
 # (OPTIONAL) / (e.g. "64514")
 # cilium_bgp_node_asn: ""
+
+# -- Enable Cloudflare R2 for Longhorn backups
+#    (OPTIONAL) / (DEFAULT: false)
+# cloudflare_r2_backup_enabled: false
+# -- Cloudflare R2 Account ID
+#    (REQUIRED if cloudflare_r2_backup_enabled is true)
+# cloudflare_r2_account_id: ""
+# -- Cloudflare R2 Access Key
+#    (REQUIRED if cloudflare_r2_backup_enabled is true)
+# cloudflare_r2_access_key: ""
+# -- Cloudflare R2 Secret Key
+#    (REQUIRED if cloudflare_r2_backup_enabled is true)
+# cloudflare_r2_secret_key: ""

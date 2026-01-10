@@ -26,6 +26,10 @@ import (
 	cilium_bgp_router_asn?: string & !=""
 	cilium_bgp_node_asn?: string & !=""
 	cilium_loadbalancer_mode?: *"dsr" | "snat"
+	cloudflare_r2_backup_enabled: bool | *false
+	cloudflare_r2_account_id?: string & !=""
+	cloudflare_r2_access_key?: string & !=""
+	cloudflare_r2_secret_key?: string & !=""
 }
 
 #Config
