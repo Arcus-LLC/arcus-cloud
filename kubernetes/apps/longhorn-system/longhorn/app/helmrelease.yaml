@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: flux-system
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: longhorn
+  targetNamespace: longhorn-system
+  values:
+    persistence:
+      defaultClass: true # Make Longhorn default StorageClass
+    csi:
+      attacherReplicaCount: 2 # For reliability in small clusters
+    defaultSettings:
+      backupTarget: s3://longhorn-backups@auto/ # Configure offsite backups for reliability
+      backupTargetCredentialSecret: longhorn-backup-secret # SOPS-encrypted
+    podSecurityPolicy: # If using older K8s
+      enabled: false # Adjust based on cluster version
