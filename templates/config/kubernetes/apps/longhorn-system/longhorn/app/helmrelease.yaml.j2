@@ -9,13 +9,72 @@ spec:
     kind: OCIRepository
     name: longhorn
   targetNamespace: longhorn-system
+  install:
+    remediation:
+      retries: 3
+    createNamespace: true
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    crds: CreateReplace
   values:
     persistence:
       defaultClass: true # Make Longhorn default StorageClass
+      defaultClassReplicaCount: 2
     csi:
-      attacherReplicaCount: 2 # For reliability in small clusters
-    #% if cloudflare_r2_backup_enabled %#
+      attacherReplicaCount: 2
+      provisionerReplicaCount: 2
+      resizerReplicaCount: 2
+      snapshotterReplicaCount: 2
     defaultSettings:
+      #% if cloudflare_r2_backup_enabled %#
       backupTarget: s3://longhorn-backups@auto/ # Configure offsite backups for reliability
       backupTargetCredentialSecret: cloudflare-r2-secret # SOPS-encrypted
-    #% endif %#
+      #% endif %#
+      defaultReplicaCount: 2
+      storageOverProvisioningPercentage: 200
+      storageMinimalAvailablePercentage: 10
+      autoDeletePodWhenVolumeDetachedUnexpectedly: true
+      concurrentBackupRestorePerNode: 2
+      orphanAutoDeletion: true
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    privileged: false
+    monitoring:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        interval: 30s
+    metrics:
+      enabled: true
+    ingress:
+      enabled: false
+    service:
+      ui:
+        type: ClusterIP
+    resources:
+      manager:
+        requests:
+          cpu: 250m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1Gi
+      engine:
+        requests:
+          cpu: 100m
+          memory: 250Mi
+    recovery:
+      enabled: true
+    recurringJobs:
+      enabled: true
+      jobs:
+        - name: daily-backup
+          groups:
+            - default
+          task: backup
+          cron: "0 3 * * *"
+          retain: 7
