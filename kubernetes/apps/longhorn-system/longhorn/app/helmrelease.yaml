@@ -50,6 +50,8 @@ spec:
       enabled: true
     ingress:
       enabled: false
+    longhornUI:
+      replicas: 1
     service:
       ui:
         type: ClusterIP
@@ -67,7 +69,7 @@ spec:
           memory: 250Mi
     recovery:
       enabled: true
-    recuingJobs:
+    recurringJobs:
       enabled: true
       jobs:
         - name: daily-backup
