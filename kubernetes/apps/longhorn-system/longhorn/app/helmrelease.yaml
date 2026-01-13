@@ -69,6 +69,7 @@ spec:
           memory: 250Mi
     recovery:
       enabled: true
+    # TODO Not sure if recurringJobs works
     recurringJobs:
       enabled: true
       jobs:
