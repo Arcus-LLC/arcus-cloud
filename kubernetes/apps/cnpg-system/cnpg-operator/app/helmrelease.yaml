@@ -5,16 +5,22 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: cloudnative-pg
-      version: "1.28.0"
-      sourceRef:
-        kind: HelmRepository
-        name: cloudnative-pg
+  chartRef:
+    kind: OCIRepository
+    name: cnpg-operator
   targetNamespace: cnpg-system
   install:
+    remediation:
+      retries: 3
     createNamespace: true
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    crds: CreateReplace
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
   values:
     monitoring:
       podMonitorEnabled: true # Enables PodMonitor for metrics scraping by Prometheus
