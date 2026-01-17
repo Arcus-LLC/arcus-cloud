@@ -18,4 +18,5 @@ spec:
     namespace: flux-system
   dependsOn:
     - name: longhorn
+      namespace: flux-system
   wait: false
