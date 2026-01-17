@@ -13,6 +13,7 @@ spec:
   storageNamespace: flux-system
   targetNamespace: longhorn-system
   install:
+    createNamespace: true
     remediation:
       retries: 3
     crds: CreateReplace

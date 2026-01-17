@@ -6,5 +6,5 @@ commonLabels:
   app.kubernetes.io/part-of: storage
 
 resources:
-  - ./namespace.yaml
+  # - ./namespace.yaml
   - ./longhorn/ks.yaml
