@@ -23,9 +23,6 @@ spec:
       retries: 3
       remediateLastFailure: true
     crds: CreateReplace
-  dependsOn:
-    - name: longhorn
-      namespace: longhorn-system
   values:
     monitoring:
       podMonitorEnabled: true # Enables PodMonitor for metrics scraping by Prometheus
